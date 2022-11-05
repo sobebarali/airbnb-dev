@@ -10,7 +10,7 @@ const SmallCard = ({img,location, distance}) => {
         </div>
 
         {/* right */}
-        <div className="">
+        <div>
             <h2>{location}</h2>
             <h2 className="text-gray-500">{distance}</h2>
         </div>
