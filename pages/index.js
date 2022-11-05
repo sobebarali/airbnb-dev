@@ -1,10 +1,10 @@
-import Head from 'next/head'
-import Image from 'next/image'
-import Banner from '../components/Banner'
-import Header from '../components/Header'
-// import styles from '../styles/Home.module.css'
+import Head from "next/head";
+import Image from "next/image";
+import Banner from "../components/Banner";
+import Header from "../components/Header";
+import SmallCard from "../components/SmallCard";
 
-export default function Home() {
+export default function Home({ exlporeData }) {
   return (
     <div>
       <Head>
@@ -16,7 +16,32 @@ export default function Home() {
       <Header />
       <Banner />
 
-      
+      <main className="max-w-7xl max-auto px-8 sm:px-16">
+        <section className="pt-6">
+          <h2 className="text-4xl font-semibold pb-5">Explore Nearby</h2>
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
+            {exlporeData?.map((item) => (
+              <SmallCard
+                key={item.img}
+                img={item.img}
+                distance={item.distance}
+                location={item.location}
+              />
+            ))}
+          </div>
+        </section>
+      </main>
     </div>
-  )
+  );
+}
+
+export async function getStaticProps() {
+  const exlporeData = await fetch("https://www.jsonkeeper.com/b/4G1G").then(
+    (res) => res.json()
+  );
+  return {
+    props: {
+      exlporeData,
+    },
+  };
 }
